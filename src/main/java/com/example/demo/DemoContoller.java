@@ -48,7 +48,7 @@ public class DemoContoller {
 		}
 
 		Git git = aClone.setCredentialsProvider(aCredentialsProvider).setDirectory(f).call();
-		FileUtils.copyDirectory(new File(System.getProperty("user.home") + "ui//jh2"), f);
+		FileUtils.copyDirectory(new File(System.getProperty("user.home")), f);
 		git.add().addFilepattern(".").call();
 		git.commit().setCommitter("default", "default").setMessage("Adding initial code structure").call();
 		git.push().setCredentialsProvider(aCredentialsProvider).setRemote(aAbsoluteProjUrl).call();
