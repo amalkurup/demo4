@@ -24,48 +24,35 @@ public class DemoContoller {
 	@GET
 	@RequestMapping("/github")
 	@ResponseBody
-	public String getGithub() throws Exception{
-		//GitHub github = GitHub.connectUsingPassword("amalkurup", "Amlu_1234");
-		
-		
+	public String getGithub() throws Exception {
+
 		GitHub github = GitHub.connectUsingPassword("amalkurup", "Amlu_1234");
-		
-		
-		//GHMyself aUser = github.getMyself();
-		
-		GHRepository aGHRepository = github.createRepository("nest").create();
+		GHRepository aGHRepository = github.createRepository("nest" + System.currentTimeMillis()).create();
 		String aAbsoluteProjUrl = aGHRepository.getHttpTransportUrl();
-		
 		CredentialsProvider aCredentialsProvider = new UsernamePasswordCredentialsProvider("amalkurup",
 				"Amlu_1234".toCharArray());
-		
-		
-		
-	
-		File file = new File(System.getProperty("user.home")+"/.gitconfig");
-		if(!file.exists()) {
-		    PrintWriter writer = new PrintWriter(file);
-		    writer.println("[http]");
-		    writer.println("sslverify = false");
-		    writer.close();
+
+		File file = new File(System.getProperty("user.home") + "/.gitconfig");
+		if (!file.exists()) {
+			PrintWriter writer = new PrintWriter(file);
+			writer.println("[http]");
+			writer.println("sslverify = false");
+			writer.close();
 		}
-		
+
 		CloneCommand aClone = Git.cloneRepository().setURI(aAbsoluteProjUrl);
-	    
-		
-		File f = new File("/tmp/repos/mock7");
-		if(!f.exists()) {
+
+		File f = new File("/tmp/repos/mock7" + System.currentTimeMillis());
+		if (!f.exists()) {
 			f.mkdir();
 		}
-		
-		Git git = aClone.setCredentialsProvider(aCredentialsProvider)
-				.setDirectory(f).call();
-		FileUtils.copyDirectory(new File(System.getProperty("user.home")),
-				f);
+
+		Git git = aClone.setCredentialsProvider(aCredentialsProvider).setDirectory(f).call();
+		FileUtils.copyDirectory(new File(System.getProperty("user.home") + "ui//jh2"), f);
 		git.add().addFilepattern(".").call();
 		git.commit().setCommitter("default", "default").setMessage("Adding initial code structure").call();
 		git.push().setCredentialsProvider(aCredentialsProvider).setRemote(aAbsoluteProjUrl).call();
-		
+
 		return aAbsoluteProjUrl;
 	}
 
