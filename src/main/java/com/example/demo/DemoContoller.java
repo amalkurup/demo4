@@ -15,6 +15,7 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,11 +59,11 @@ public class DemoContoller {
 		return aAbsoluteProjUrl;
 	}
 	
-	@POST
+	@GET
 	@RequestMapping("/validateGitCredentials")
 	@ResponseBody
-	public String validateGitCredentials(@RequestBody RepositoryEnv repoEnv) throws Exception {
-		System.out.println("********************in project Controller  ---------->:"+repoEnv.toString() );
+	public String validateGitCredentials(@RequestHeader(value="username") String username, @RequestHeader(value="password") String password) throws Exception {
+		System.out.println("********************in project Controller  ---------->:"+username + ":" + password );
 		return "success";
 	} 
 
