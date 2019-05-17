@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.PrintWriter;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.CloneCommand;
@@ -13,6 +14,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,5 +57,13 @@ public class DemoContoller {
 
 		return aAbsoluteProjUrl;
 	}
+	
+	@POST
+	@RequestMapping("/validateGitCredentials")
+	@ResponseBody
+	public String validateGitCredentials(@RequestBody RepositoryEnv repoEnv) throws Exception {
+		System.out.println("********************in project Controller  ---------->:"+repoEnv.toString() );
+		return "success";
+	} 
 
 }
