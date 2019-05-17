@@ -62,9 +62,11 @@ public class DemoContoller {
 	@GET
 	@RequestMapping("/validateGitCredentials")
 	@ResponseBody
-	public String validateGitCredentials(@RequestHeader(value="username") String username, @RequestHeader(value="password") String password) throws Exception {
+	public GitResp validateGitCredentials(@RequestHeader(value="username") String username, @RequestHeader(value="password") String password) throws Exception {
 		System.out.println("********************in project Controller  ---------->:"+username + ":" + password );
-		return "success";
+		GitResp a = new GitResp();
+		a.setStatus("success");
+		return a;
 	} 
 
 }
